@@ -10,7 +10,7 @@ const init = () => {
   firebase.initializeApp(apiKeys.firebaseConfig);
   authData.checkLoginStatus();
   login.loginButton();
-  login.signMeIn();
+  // login.signMeIn();
   myNavbar.logoutEvent();
 };
 
