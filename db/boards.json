@@ -1,0 +1,32 @@
+{
+  "board1": {
+    "name": "mySpace",
+    "uid": "LIQ8v7CONxTudpvm5icp5IHoih33",
+    "isPrivate": false,
+    "description": "Neverending house-spo!"
+  },
+  "board2": {
+    "name": "fallTime",
+    "uid": "LIQ8v7CONxTudpvm5icp5IHoih33",
+    "isPrivate": true,
+    "description": "Fall and winterwear."
+  },
+  "board3": {
+    "name": "summertimeFine",
+    "uid": "LIQ8v7CONxTudpvm5icp5IHoih33",
+    "isPrivate": true,
+    "description": "Baby, you summa time fine!"
+  },
+  "board4": {
+    "name": "fashionistas",
+    "uid": "LIQ8v7CONxTudpvm5icp5IHoih33",
+    "isPrivate": false,
+    "description": "Street-style by fashionistas."
+  },
+  "board5": {
+    "name": "details",
+    "uid": "LIQ8v7CONxTudpvm5icp5IHoih33",
+    "isPrivate": false,
+    "description": "... it's all in the details!"
+  }
+}
