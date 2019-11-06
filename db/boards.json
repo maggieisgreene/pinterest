@@ -3,30 +3,35 @@
     "name": "mySpace",
     "uid": "LIQ8v7CONxTudpvm5icp5IHoih33",
     "isPrivate": false,
-    "description": "Neverending house-spo!"
+    "description": "Neverending house-spo!",
+    "previewImageUrl": "https://i.pinimg.com/originals/82/27/fa/8227fab502dc8722f8ee452047100128.jpg"
   },
   "board2": {
     "name": "fallTime",
     "uid": "LIQ8v7CONxTudpvm5icp5IHoih33",
     "isPrivate": true,
-    "description": "Fall and winterwear."
+    "description": "Fall and winterwear.",
+    "previewImageUrl": "https://i.pinimg.com/originals/82/27/fa/8227fab502dc8722f8ee452047100128.jpg"
   },
   "board3": {
     "name": "summertimeFine",
     "uid": "LIQ8v7CONxTudpvm5icp5IHoih33",
     "isPrivate": true,
-    "description": "Baby, you summa time fine!"
+    "description": "Baby, you summa time fine!",
+    "previewImageUrl": "https://i.pinimg.com/originals/82/27/fa/8227fab502dc8722f8ee452047100128.jpg"
   },
   "board4": {
     "name": "fashionistas",
     "uid": "LIQ8v7CONxTudpvm5icp5IHoih33",
     "isPrivate": false,
-    "description": "Street-style by fashionistas."
+    "description": "Street-style by fashionistas.",
+    "previewImageUrl": "https://i.pinimg.com/originals/ec/09/e2/ec09e23a11569f83c612b9dbd943a341.jpg"
   },
   "board5": {
     "name": "details",
     "uid": "LIQ8v7CONxTudpvm5icp5IHoih33",
     "isPrivate": false,
-    "description": "... it's all in the details!"
+    "description": "... it's all in the details!",
+    "previewImageUrl": "https://i.pinimg.com/originals/82/27/fa/8227fab502dc8722f8ee452047100128.jpg"
   }
 }

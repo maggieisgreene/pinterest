@@ -5,13 +5,14 @@ import '../styles/main.scss';
 import login from './components/Auth/auth';
 import authData from './helpers/data/authData';
 import myNavbar from './components/MyNavbar/myNavbar';
+import boards from './components/AllBoards/allBoards';
 
 const init = () => {
   firebase.initializeApp(apiKeys.firebaseConfig);
   authData.checkLoginStatus();
   login.loginButton();
-  // login.signMeIn();
   myNavbar.logoutEvent();
+  boards.printBoards();
 };
 
 init();
