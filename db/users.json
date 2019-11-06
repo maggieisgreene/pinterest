@@ -1,0 +1,16 @@
+{
+  "user1": {
+    "name": "Maggie Greene",
+    "uid": "LIQ8v7CONxTudpvm5icp5IHoih33",
+    "email": "maggie.greene96@gmail.com",
+    "location": "Nashville, Tennessee",
+    "imageUrl": ""
+  },
+  "user2": {
+    "name": "Elle Greene",
+    "uid": "12345",
+    "email": "elle.greene@yahoo.com",
+    "location": "Nashville, Tennessee",
+    "imageUrl": ""
+  }
+}
