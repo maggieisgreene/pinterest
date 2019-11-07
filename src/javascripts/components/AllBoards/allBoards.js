@@ -1,3 +1,5 @@
+// import firebase from 'firebase/app';
+// import 'firebase/auth';
 import $ from 'jquery';
 import './allBoards.scss';
 import boardsData from '../../helpers/data/boardsData';
@@ -20,8 +22,18 @@ const deletePinByClick = (event) => {
 };
 
 const deleteBoardByClick = (event) => {
-  event.preventDefault();
-  console.error('hhhhhauhuahuhuhuahuhauhua');
+  event.stopImmediatePropagation();
+  const deleteBoard = event.target.className;
+  const boardId = event.target.closest('.card').id;
+  // const { uid } = firebase.auth().currentUser;
+  if (deleteBoard === 'delete-board') {
+    boardsData.deleteBoard(boardId)
+      .then(() => {
+        const selectedBoard = event.target.closest('.card').id;
+        $(`#${selectedBoard}`).addClass('hide');
+      })
+      .catch((error) => console.error(error));
+  }
 };
 
 const exitPins = () => {
@@ -65,7 +77,7 @@ const printBoards = (uid) => {
       domString += '</div>';
       utilities.printToDom('boards', domString);
       $('#boards').on('click', '.individualBoard', printPins);
-      $('boards').on('click', '.delete-board', deleteBoardByClick);
+      $('#boards').on('click', '.delete-board', deleteBoardByClick);
       $('#pins').on('click', '.delete-pin', deletePinByClick);
       exitPins();
     })
