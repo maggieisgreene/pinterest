@@ -6,6 +6,19 @@ import pinView from '../PinView/pinView';
 import singleBoard from '../SingleBoard/singleBoard';
 import utilities from '../../helpers/utilities';
 
+const deletePinByClick = (event) => {
+  event.preventDefault();
+  const deleteButton = event.target.className;
+  if (deleteButton === 'delete-pin') {
+    pinsData.deletePin(event.target.closest('.card').id)
+      .then(() => {
+        const selectedPin = event.target.closest('.card').id;
+        $(`#${selectedPin}`).addClass('hide');
+      })
+      .catch((error) => console.error(error));
+  }
+};
+
 const exitPins = () => {
   $('#pins').on('click', '#exit-pins', () => {
     const boardsDiv = $('#boards');
@@ -20,8 +33,8 @@ const printPins = (event) => {
   pinsData.getPinByBoardId(boardId)
     .then((pins) => {
       let domStringTwo = '';
-      domStringTwo += `<div class="d-flex flex-wrap justify-content-between header-stuff"><h2>${boardId}</h2>`;
-      domStringTwo += '<button class="btn btn-light" id="exit-pins">Go Back</button></div>';
+      domStringTwo += '<div class="d-flex flex-wrap justify-content-between header-stuff"><h2>Board</h2>'; // ${pins[0].boardName} add for name of board at top -- but erases everything if no pins
+      domStringTwo += '<div class="d-flex flex-wrap"><button class="btn btn-light" id="add-pin">Create Pin</button><button class="btn btn-light" id="exit-pins">Go Back</button></div></div>';
       domStringTwo += '<div id="pins-section" class="d-flex flex-wrap">';
       pins.forEach((pin) => {
         domStringTwo += pinView.printPinCards(pin);
@@ -47,7 +60,7 @@ const printBoards = (uid) => {
       domString += '</div>';
       utilities.printToDom('boards', domString);
       $('#boards').on('click', '.individualBoard', printPins);
-      // $('#pins').on('click', '.delete-pin', deletePinByClick);
+      $('#pins').on('click', '.delete-pin', deletePinByClick);
       exitPins();
     })
     .catch((error) => console.error(error));
