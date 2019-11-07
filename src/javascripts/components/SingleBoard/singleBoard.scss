@@ -1,6 +1,9 @@
 .individualBoard {
   border: 1px white solid;
   border-radius: 5px;
+  * {
+    pointer-events: none;
+  }
 }
 
 .boardImg {

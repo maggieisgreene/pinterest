@@ -1,9 +1,23 @@
 import $ from 'jquery';
 import boardsData from '../../helpers/data/boardsData';
+import pinsData from '../../helpers/data/pinsData';
+import pinView from '../PinView/pinView';
 import singleBoard from '../SingleBoard/singleBoard';
 import utilities from '../../helpers/utilities';
 
-const printPins = () => {
+const printPins = (event) => {
+  const boardId = event.target.id;
+  pinsData.getPinByBoardId(boardId)
+    .then((pins) => {
+      let domStringTwo = '';
+      domStringTwo += '<div id="pins-section" class="d-flex flex-wrap"></div>';
+      pins.forEach((pin) => {
+        domStringTwo += pinView.printPinCards(pin);
+      });
+      domStringTwo += '</div>';
+      utilities.printToDom('pins', domStringTwo);
+    })
+    .catch((error) => console.error(error));
   const boardsDiv = $('#boards');
   const pinsDiv = $('#pins');
   boardsDiv.addClass('hide');
