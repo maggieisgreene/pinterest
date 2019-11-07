@@ -6,6 +6,16 @@ import pinView from '../PinView/pinView';
 import singleBoard from '../SingleBoard/singleBoard';
 import utilities from '../../helpers/utilities';
 
+const deletePinByClick = (event) => {
+  event.preventDefault();
+  const deleteButton = event.target.className;
+  if (deleteButton === 'delete-pin') {
+    pinsData.deletePin('pin1')
+      .then(() => console.error('hyyyyy'))
+      .catch((error) => console.error(error));
+  }
+};
+
 const exitPins = () => {
   $('#pins').on('click', '#exit-pins', () => {
     const boardsDiv = $('#boards');
@@ -47,7 +57,7 @@ const printBoards = (uid) => {
       domString += '</div>';
       utilities.printToDom('boards', domString);
       $('#boards').on('click', '.individualBoard', printPins);
-      // $('#pins').on('click', '.delete-pin', deletePinByClick);
+      $('#pins').on('click', '.delete-pin', deletePinByClick);
       exitPins();
     })
     .catch((error) => console.error(error));
