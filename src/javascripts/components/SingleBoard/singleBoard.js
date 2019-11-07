@@ -7,7 +7,7 @@ const boardCardBuilder = (board) => {
   <div class="card col-3 individualBoard" id="${board.id}">
     <img src=${board.previewImageUrl} class="card-img-top boardImg" alt="Image of ${board.name}">
     <div class="card-body">
-      <h5 class="card-title">${board.name}</h5>
+      <div class="d-flex flex-wrap justify-content-between"><h5 class="card-title">${board.name}</h5><h5 class="delete-board">x</h5></div>
     </div>
   </div>`;
   }

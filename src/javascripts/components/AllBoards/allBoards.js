@@ -19,6 +19,11 @@ const deletePinByClick = (event) => {
   }
 };
 
+const deleteBoardByClick = (event) => {
+  event.preventDefault();
+  console.error('heheheehehy');
+};
+
 const exitPins = () => {
   $('#pins').on('click', '#exit-pins', () => {
     const boardsDiv = $('#boards');
@@ -60,6 +65,7 @@ const printBoards = (uid) => {
       domString += '</div>';
       utilities.printToDom('boards', domString);
       $('#boards').on('click', '.individualBoard', printPins);
+      $('boards').on('click', '.delete-board', deleteBoardByClick);
       $('#pins').on('click', '.delete-pin', deletePinByClick);
       exitPins();
     })
