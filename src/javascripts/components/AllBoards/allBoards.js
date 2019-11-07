@@ -47,6 +47,7 @@ const printBoards = (uid) => {
       domString += '</div>';
       utilities.printToDom('boards', domString);
       $('#boards').on('click', '.individualBoard', printPins);
+      // $('#pins').on('click', '.delete-pin', deletePinByClick);
       exitPins();
     })
     .catch((error) => console.error(error));
