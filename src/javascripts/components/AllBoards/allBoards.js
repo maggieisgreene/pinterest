@@ -21,7 +21,7 @@ const deletePinByClick = (event) => {
 
 const deleteBoardByClick = (event) => {
   event.preventDefault();
-  console.error('heheheehehy');
+  console.error('hhhhhauhuahuhuhuahuhauhua');
 };
 
 const exitPins = () => {
