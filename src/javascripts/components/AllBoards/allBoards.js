@@ -1,22 +1,10 @@
 import $ from 'jquery';
 import './allBoards.scss';
-import firebase from 'firebase/auth';
 import boardsData from '../../helpers/data/boardsData';
 import pinsData from '../../helpers/data/pinsData';
 import pinView from '../PinView/pinView';
 import singleBoard from '../SingleBoard/singleBoard';
 import utilities from '../../helpers/utilities';
-
-const deletePinByClick = (event) => {
-  event.preventDefault();
-  const { uid } = firebase.auth().currentUser;
-  pinsData.getPinByBoardId(event.target.id)
-    .then(() => {
-      // eslint-disable-next-line no-use-before-define
-      printBoards(uid);
-    })
-    .catch((error) => console.error(error));
-};
 
 const exitPins = () => {
   $('#pins').on('click', '#exit-pins', () => {
@@ -59,7 +47,7 @@ const printBoards = (uid) => {
       domString += '</div>';
       utilities.printToDom('boards', domString);
       $('#boards').on('click', '.individualBoard', printPins);
-      $('#pins').on('click', '.delete-pin', deletePinByClick);
+      // $('#pins').on('click', '.delete-pin', deletePinByClick);
       exitPins();
     })
     .catch((error) => console.error(error));
