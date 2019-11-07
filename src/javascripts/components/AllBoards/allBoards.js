@@ -5,12 +5,22 @@ import pinView from '../PinView/pinView';
 import singleBoard from '../SingleBoard/singleBoard';
 import utilities from '../../helpers/utilities';
 
+const exitPins = () => {
+  $('#pins').on('click', '#exit-pins', () => {
+    const boardsDiv = $('#boards');
+    const pinsDiv = $('#pins');
+    boardsDiv.removeClass('hide');
+    pinsDiv.addClass('hide');
+  });
+};
+
 const printPins = (event) => {
   const boardId = event.target.id;
   pinsData.getPinByBoardId(boardId)
     .then((pins) => {
       let domStringTwo = '';
       domStringTwo += '<div id="pins-section" class="d-flex flex-wrap"></div>';
+      domStringTwo += '<button class="btn btn-light" id="exit-pins">Go Back</button>';
       pins.forEach((pin) => {
         domStringTwo += pinView.printPinCards(pin);
       });
@@ -35,6 +45,7 @@ const printBoards = (uid) => {
       domString += '</div>';
       utilities.printToDom('boards', domString);
       $('#boards').on('click', '.individualBoard', printPins);
+      exitPins();
     })
     .catch((error) => console.error(error));
 };
