@@ -1,4 +1,5 @@
 import $ from 'jquery';
+import './allBoards.scss';
 import boardsData from '../../helpers/data/boardsData';
 import pinsData from '../../helpers/data/pinsData';
 import pinView from '../PinView/pinView';
@@ -19,8 +20,9 @@ const printPins = (event) => {
   pinsData.getPinByBoardId(boardId)
     .then((pins) => {
       let domStringTwo = '';
-      domStringTwo += '<div id="pins-section" class="d-flex flex-wrap"></div>';
-      domStringTwo += '<button class="btn btn-light" id="exit-pins">Go Back</button>';
+      domStringTwo += `<div class="d-flex flex-wrap justify-content-between header-stuff"><h2>${boardId}</h2>`;
+      domStringTwo += '<button class="btn btn-light" id="exit-pins">Go Back</button></div>';
+      domStringTwo += '<div id="pins-section" class="d-flex flex-wrap">';
       pins.forEach((pin) => {
         domStringTwo += pinView.printPinCards(pin);
       });
