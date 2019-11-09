@@ -5,3 +5,22 @@
 #add-pin {
   margin: 0px 10px 0px 0px;
 }
+
+.addBoard {
+  border: 1px white solid;
+  border-radius: 5px;
+  * {
+    pointer-events: none;
+  }
+}
+
+.addBoardImg {
+  border-radius: 15px;
+  margin: 10px;
+  padding: 5px;
+}
+
+.add-board {
+  color: gray;
+  pointer-events: auto;
+}
