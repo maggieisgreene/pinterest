@@ -8,6 +8,24 @@ import pinView from '../PinView/pinView';
 import singleBoard from '../SingleBoard/singleBoard';
 import utilities from '../../helpers/utilities';
 
+const addNewIndividualBoard = (event) => {
+  event.stopImmediatePropagation();
+  const { uid } = firebase.auth().currentUser;
+  const newBoard = {
+    name: $('#board-name').val(),
+    description: $('#board-description').val(),
+    uid,
+    previewImageUrl: $('#board-image-url').val(),
+  };
+  boardsData.addNewBoard(newBoard)
+    .then(() => {
+      $('#addBoardModal').modal('hide');
+      // eslint-disable-next-line no-use-before-define
+      printBoards(uid);
+    })
+    .catch();
+};
+
 const addNewPin = (event) => {
   event.stopImmediatePropagation();
   const boardId = event.target.getAttribute('data-store-id');
@@ -103,12 +121,20 @@ const printBoards = (uid) => {
       boards.forEach((board) => {
         domString += singleBoard.boardCardBuilder(board);
       });
+      domString += `
+      <div class="card col-3 addBoard" id="board-adding-div">
+        <img src="https://s7d5.scene7.com/is/image/DecorOnline/roller-shades_11370343" class="card-img-top addBoardImg" alt="Add New Board">
+        <div class="card-body">
+          <div class="d-flex flex-wrap justify-content-between"><h5 class="card-title">Add Board</h5><h4 class="add-board" data-toggle="modal" data-target="#addBoardModal">+</h4></div>
+        </div>
+      </div>`;
       domString += '</div>';
       utilities.printToDom('boards', domString);
       $('#boards').on('click', '.individualBoard', printPinsEventHandler);
       $('#boards').on('click', '.delete-board', deleteBoardByClick);
       $('#pins').on('click', '.delete-pin', deletePinByClick);
       $('#add-new-pin').click(addNewPin);
+      $('#add-new-board').click(addNewIndividualBoard);
       exitPins();
     })
     .catch((error) => console.error(error));
