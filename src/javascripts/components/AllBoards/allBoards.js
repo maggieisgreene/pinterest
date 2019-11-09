@@ -10,19 +10,19 @@ import utilities from '../../helpers/utilities';
 
 const addNewPin = (event) => {
   event.stopImmediatePropagation();
+  const boardId = event.target.getAttribute('data-store-id');
   const newPin = {
     name: $('#pin-name').val(),
     imageUrl: $('#pin-image-url').val(),
     siteUrl: $('#pin-image-url').val(),
     description: $('#pin-description').val(),
-    boardId: 0,
-    boardName: $('#pin-board-name').val(),
+    boardId,
   };
   pinsData.addNewPin(newPin)
     .then(() => {
       $('#exampleModal').modal('hide');
       // eslint-disable-next-line no-use-before-define
-      console.error('heeellllo');
+      printPins(boardId);
     })
     .catch((error) => console.error(error));
 };
@@ -73,13 +73,14 @@ const printPins = (boardId) => {
       let domStringTwo = '';
       domStringTwo += '<div class="d-flex flex-wrap justify-content-between header-stuff"><h2>Board</h2>'; // ${pins[0].boardName} add for name of board at top -- but erases everything if no pins
       domStringTwo += '<div class="d-flex flex-wrap">';
-      domStringTwo += '<button class="btn btn-light" id="add-pin" data-toggle="modal" data-target="#exampleModal">Create Pin</button><button class="btn btn-light" id="exit-pins">Go Back</button>';
-      domStringTwo += '</div></div>';
+      domStringTwo += `<button class="btn btn-light" id="add-pin" data-toggle="modal" data-target="#exampleModal" data-board-id="${boardId}">Create Pin</button>`;
+      domStringTwo += '<button class="btn btn-light" id="exit-pins">Go Back</button></div></div>';
       domStringTwo += '<div id="pins-section" class="d-flex flex-wrap">';
       pins.forEach((pin) => {
         domStringTwo += pinView.printPinCards(pin);
       });
       domStringTwo += '</div>';
+      $('#add-new-pin').attr('data-store-id', boardId);
       utilities.printToDom('pins', domStringTwo);
     })
     .catch((error) => console.error(error));
