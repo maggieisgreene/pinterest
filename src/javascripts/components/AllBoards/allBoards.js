@@ -1,5 +1,5 @@
-// import firebase from 'firebase/app';
-// import 'firebase/auth';
+import firebase from 'firebase/app';
+import 'firebase/auth';
 import $ from 'jquery';
 import './allBoards.scss';
 import boardsData from '../../helpers/data/boardsData';
@@ -14,8 +14,9 @@ const deletePinByClick = (event) => {
   if (deleteButton === 'delete-pin') {
     pinsData.deletePin(event.target.closest('.card').id)
       .then(() => {
-        const selectedPin = event.target.closest('.card').id;
-        $(`#${selectedPin}`).addClass('hide');
+        const boardId = event.target.closest('.card').className.split('card col-3 individual-pin ')[1];
+        // eslint-disable-next-line no-use-before-define
+        printPins(boardId);
       })
       .catch((error) => console.error(error));
   }
@@ -25,12 +26,14 @@ const deleteBoardByClick = (event) => {
   event.stopImmediatePropagation();
   const deleteBoard = event.target.className;
   const boardId = event.target.closest('.card').id;
-  // const { uid } = firebase.auth().currentUser;
+  const { uid } = firebase.auth().currentUser;
   if (deleteBoard === 'delete-board') {
     boardsData.deleteBoard(boardId)
       .then(() => {
-        const selectedBoard = event.target.closest('.card').id;
-        $(`#${selectedBoard}`).addClass('hide');
+        // const selectedBoard = event.target.closest('.card').id;
+        // $(`#${selectedBoard}`).addClass('hide');
+        // eslint-disable-next-line no-use-before-define
+        printBoards(uid);
       })
       .catch((error) => console.error(error));
   }
@@ -45,8 +48,7 @@ const exitPins = () => {
   });
 };
 
-const printPins = (event) => {
-  const boardId = event.target.id;
+const printPins = (boardId) => {
   pinsData.getPinByBoardId(boardId)
     .then((pins) => {
       let domStringTwo = '';
@@ -66,6 +68,11 @@ const printPins = (event) => {
   pinsDiv.removeClass('hide');
 };
 
+const printPinsEventHandler = (event) => {
+  const boardId = event.target.id;
+  printPins(boardId);
+};
+
 const printBoards = (uid) => {
   boardsData.getBoardByUid(uid)
     .then((boards) => {
@@ -76,7 +83,7 @@ const printBoards = (uid) => {
       });
       domString += '</div>';
       utilities.printToDom('boards', domString);
-      $('#boards').on('click', '.individualBoard', printPins);
+      $('#boards').on('click', '.individualBoard', printPinsEventHandler);
       $('#boards').on('click', '.delete-board', deleteBoardByClick);
       $('#pins').on('click', '.delete-pin', deletePinByClick);
       exitPins();
