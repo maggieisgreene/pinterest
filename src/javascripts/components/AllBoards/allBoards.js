@@ -8,6 +8,25 @@ import pinView from '../PinView/pinView';
 import singleBoard from '../SingleBoard/singleBoard';
 import utilities from '../../helpers/utilities';
 
+const addNewPin = (event) => {
+  event.stopImmediatePropagation();
+  const newPin = {
+    name: $('#pin-name').val(),
+    imageUrl: $('#pin-image-url').val(),
+    siteUrl: $('#pin-image-url').val(),
+    description: $('#pin-description').val(),
+    boardId: 0,
+    boardName: $('#pin-board-name').val(),
+  };
+  pinsData.addNewPin(newPin)
+    .then(() => {
+      $('#exampleModal').modal('hide');
+      // eslint-disable-next-line no-use-before-define
+      console.error('heeellllo');
+    })
+    .catch((error) => console.error(error));
+};
+
 const deletePinByClick = (event) => {
   event.preventDefault();
   const deleteButton = event.target.className;
@@ -30,10 +49,10 @@ const deleteBoardByClick = (event) => {
   if (deleteBoard === 'delete-board') {
     boardsData.deleteBoard(boardId)
       .then(() => {
-        // const selectedBoard = event.target.closest('.card').id;
-        // $(`#${selectedBoard}`).addClass('hide');
         // eslint-disable-next-line no-use-before-define
         printBoards(uid);
+        // pinsData.deletePinByBoardId(boardId)
+        //   .then(() => console.error('from deleteboardbyclick', boardId));
       })
       .catch((error) => console.error(error));
   }
@@ -53,7 +72,9 @@ const printPins = (boardId) => {
     .then((pins) => {
       let domStringTwo = '';
       domStringTwo += '<div class="d-flex flex-wrap justify-content-between header-stuff"><h2>Board</h2>'; // ${pins[0].boardName} add for name of board at top -- but erases everything if no pins
-      domStringTwo += '<div class="d-flex flex-wrap"><button class="btn btn-light" id="add-pin">Create Pin</button><button class="btn btn-light" id="exit-pins">Go Back</button></div></div>';
+      domStringTwo += '<div class="d-flex flex-wrap">';
+      domStringTwo += '<button class="btn btn-light" id="add-pin" data-toggle="modal" data-target="#exampleModal">Create Pin</button><button class="btn btn-light" id="exit-pins">Go Back</button>';
+      domStringTwo += '</div></div>';
       domStringTwo += '<div id="pins-section" class="d-flex flex-wrap">';
       pins.forEach((pin) => {
         domStringTwo += pinView.printPinCards(pin);
@@ -86,6 +107,7 @@ const printBoards = (uid) => {
       $('#boards').on('click', '.individualBoard', printPinsEventHandler);
       $('#boards').on('click', '.delete-board', deleteBoardByClick);
       $('#pins').on('click', '.delete-pin', deletePinByClick);
+      $('#add-new-pin').click(addNewPin);
       exitPins();
     })
     .catch((error) => console.error(error));
