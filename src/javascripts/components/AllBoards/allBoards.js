@@ -6,6 +6,7 @@ import boardsData from '../../helpers/data/boardsData';
 import pinsData from '../../helpers/data/pinsData';
 import pinView from '../PinView/pinView';
 import singleBoard from '../SingleBoard/singleBoard';
+import switchBoard from '../SwitchBoard/switchBoard';
 import utilities from '../../helpers/utilities';
 
 const addNewIndividualBoard = (event) => {
@@ -96,6 +97,7 @@ const printPins = (boardId) => {
       domStringTwo += '<div id="pins-section" class="d-flex flex-wrap">';
       pins.forEach((pin) => {
         domStringTwo += pinView.printPinCards(pin);
+        domStringTwo += switchBoard.importSwitchBoardModal(pin);
       });
       domStringTwo += '</div>';
       $('#add-new-pin').attr('data-store-id', boardId);
