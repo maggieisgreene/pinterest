@@ -88,10 +88,11 @@ const deleteBoardByClick = (event) => {
   if (deleteBoard === 'delete-board') {
     boardsData.deleteBoard(boardId)
       .then(() => {
+        pinsData.getPinByBoardId(boardId).then((pins) => {
+          pins.forEach((pin) => pinsData.deletePin(pin.id));
+        });
         // eslint-disable-next-line no-use-before-define
         printBoards(uid);
-        // pinsData.deletePinByBoardId(boardId)
-        //   .then(() => console.error('from deleteboardbyclick', boardId));
       })
       .catch((error) => console.error(error));
   }
@@ -115,7 +116,7 @@ const printPins = (boardId) => {
   smash.getPinByBoardIdWithBoardName(boardId)
     .then((pins) => {
       let domStringTwo = '';
-      domStringTwo += '<div class="d-flex flex-wrap justify-content-between header-stuff"><h2>BoARD</h2>'; // ${pins[0].boardName} add for name of board at top -- but erases everything if no pins
+      domStringTwo += '<div class="d-flex flex-wrap justify-content-between header-stuff"><h2 id="eachTitle"></h2>';
       domStringTwo += '<div class="d-flex flex-wrap">';
       domStringTwo += `<button class="btn btn-light" id="add-pin" data-toggle="modal" data-target="#exampleModal" data-board-id="${boardId}">Create Pin</button>`;
       domStringTwo += '<button class="btn btn-light" id="exit-pins">Go Back</button></div></div>';
@@ -140,6 +141,9 @@ const printPins = (boardId) => {
 const printPinsEventHandler = (event) => {
   const boardId = event.target.id;
   printPins(boardId);
+  const boardName = $(event.target).attr('store-boardName').toString();
+  console.error(boardName);
+  $('#eachTitle').html(boardName);
 };
 
 const printBoards = (uid) => {
