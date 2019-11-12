@@ -12,7 +12,7 @@ const importSwitchBoardModal = () => {
       domString += `
                 <form>
                   <div class="form-group">
-                  <label for="exampleFormControlSelect1">Example select</label>
+                  <label for="exampleFormControlSelect1">Select Board</label>
                   <select class="form-control" id="exampleFormControlSelect1">`;
       boards.forEach((board) => {
         domString += `<option value="${board.id}">${board.name}</option>`;
