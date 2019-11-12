@@ -18,7 +18,6 @@ const getPinByBoardIdWithBoardName = (boardId) => new Promise((resolve, reject) 
             }
             newPins.push(newPin);
           });
-          console.error(newPins);
           resolve(newPins);
         });
     })
