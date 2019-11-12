@@ -4,10 +4,25 @@ import $ from 'jquery';
 import './allBoards.scss';
 import boardsData from '../../helpers/data/boardsData';
 import pinsData from '../../helpers/data/pinsData';
+// import smash from '../../helpers/data/smash';
 import pinView from '../PinView/pinView';
 import singleBoard from '../SingleBoard/singleBoard';
 import switchBoard from '../SwitchBoard/switchBoard';
 import utilities from '../../helpers/utilities';
+
+const switchBoardButtonClick = (event) => {
+  const id = $(event.target).attr('store-pinId');
+  const myInput = $('#exampleFormControlSelect1').val();
+  pinsData.getPinById(id)
+    .then((pin) => {
+      const pinToEdit = { ...pin };
+      pinToEdit.boardId = myInput;
+      console.error(pinToEdit);
+      // make a func that does the put request
+      // in the .then close modal and recall printpins
+    })
+    .catch();
+};
 
 const addNewIndividualBoard = (event) => {
   event.stopImmediatePropagation();
@@ -86,6 +101,11 @@ const exitPins = () => {
   });
 };
 
+const getPinIdAndPuttingItOnAnotherButton = (event) => {
+  const pinId = $(event.target).closest('.card').attr('id');
+  $('#switch-new-board').attr('store-pinId', pinId);
+};
+
 const printPins = (boardId) => {
   pinsData.getPinByBoardId(boardId)
     .then((pins) => {
@@ -97,11 +117,13 @@ const printPins = (boardId) => {
       domStringTwo += '<div id="pins-section" class="d-flex flex-wrap">';
       pins.forEach((pin) => {
         domStringTwo += pinView.printPinCards(pin);
-        domStringTwo += switchBoard.importSwitchBoardModal(pin);
+        switchBoard.importSwitchBoardModal();
       });
       domStringTwo += '</div>';
       $('#add-new-pin').attr('data-store-id', boardId);
       utilities.printToDom('pins', domStringTwo);
+      $('.switch-board').click(getPinIdAndPuttingItOnAnotherButton);
+      $('#switch-new-board').click(switchBoardButtonClick);
     })
     .catch((error) => console.error(error));
   const boardsDiv = $('#boards');
