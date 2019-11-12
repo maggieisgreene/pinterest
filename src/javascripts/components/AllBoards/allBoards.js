@@ -4,9 +4,30 @@ import $ from 'jquery';
 import './allBoards.scss';
 import boardsData from '../../helpers/data/boardsData';
 import pinsData from '../../helpers/data/pinsData';
+// import smash from '../../helpers/data/smash';
 import pinView from '../PinView/pinView';
 import singleBoard from '../SingleBoard/singleBoard';
+import switchBoard from '../SwitchBoard/switchBoard';
 import utilities from '../../helpers/utilities';
+import smash from '../../helpers/data/smash';
+
+const switchBoardButtonClick = (event) => {
+  // const { uid } = firebase.auth().currentUser;
+  const id = $(event.target).attr('store-pinId');
+  const myInput = $('#exampleFormControlSelect1').val();
+  pinsData.getPinById(id)
+    .then((pin) => {
+      const pinToEdit = { ...pin };
+      pinToEdit.boardId = myInput;
+      pinsData.updatePin(id, pinToEdit)
+        .then(() => {
+          $('#switchBoardModal').modal('hide');
+          // eslint-disable-next-line no-use-before-define
+          printPins(myInput);
+        });
+    })
+    .catch();
+};
 
 const addNewIndividualBoard = (event) => {
   event.stopImmediatePropagation();
@@ -85,21 +106,29 @@ const exitPins = () => {
   });
 };
 
+const getPinIdAndPuttingItOnAnotherButton = (event) => {
+  const pinId = $(event.target).closest('.card').attr('id');
+  $('#switch-new-board').attr('store-pinId', pinId);
+};
+
 const printPins = (boardId) => {
-  pinsData.getPinByBoardId(boardId)
+  smash.getPinByBoardIdWithBoardName(boardId)
     .then((pins) => {
       let domStringTwo = '';
-      domStringTwo += '<div class="d-flex flex-wrap justify-content-between header-stuff"><h2>Board</h2>'; // ${pins[0].boardName} add for name of board at top -- but erases everything if no pins
+      domStringTwo += '<div class="d-flex flex-wrap justify-content-between header-stuff"><h2>BoARD</h2>'; // ${pins[0].boardName} add for name of board at top -- but erases everything if no pins
       domStringTwo += '<div class="d-flex flex-wrap">';
       domStringTwo += `<button class="btn btn-light" id="add-pin" data-toggle="modal" data-target="#exampleModal" data-board-id="${boardId}">Create Pin</button>`;
       domStringTwo += '<button class="btn btn-light" id="exit-pins">Go Back</button></div></div>';
       domStringTwo += '<div id="pins-section" class="d-flex flex-wrap">';
       pins.forEach((pin) => {
         domStringTwo += pinView.printPinCards(pin);
+        switchBoard.importSwitchBoardModal();
       });
       domStringTwo += '</div>';
       $('#add-new-pin').attr('data-store-id', boardId);
       utilities.printToDom('pins', domStringTwo);
+      $('.switch-board').click(getPinIdAndPuttingItOnAnotherButton);
+      $('#switch-new-board').click(switchBoardButtonClick);
     })
     .catch((error) => console.error(error));
   const boardsDiv = $('#boards');
