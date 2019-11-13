@@ -116,7 +116,7 @@ const printPins = (boardId) => {
   smash.getPinByBoardIdWithBoardName(boardId)
     .then((pins) => {
       let domStringTwo = '';
-      domStringTwo += '<div class="d-flex flex-wrap justify-content-between header-stuff"><h2 id="eachTitle"></h2>';
+      domStringTwo += '<div class="d-flex flex-wrap justify-content-between header-stuff"><h2 id="eachTitle"></h2>'; // pins[0].boardName
       domStringTwo += '<div class="d-flex flex-wrap">';
       domStringTwo += `<button class="btn btn-light" id="add-pin" data-toggle="modal" data-target="#exampleModal" data-board-id="${boardId}">Create Pin</button>`;
       domStringTwo += '<button class="btn btn-light" id="exit-pins">Go Back</button></div></div>';
@@ -139,11 +139,11 @@ const printPins = (boardId) => {
 };
 
 const printPinsEventHandler = (event) => {
+  const boardName = $(event.target).attr('store-boardName').toString();
   const boardId = event.target.id;
   printPins(boardId);
-  const boardName = $(event.target).attr('store-boardName').toString();
   console.error(boardName);
-  $('#eachTitle').html(boardName);
+  $('#eachTitle').append(boardName);
 };
 
 const printBoards = (uid) => {
