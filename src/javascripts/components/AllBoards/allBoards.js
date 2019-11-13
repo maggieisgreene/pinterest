@@ -113,10 +113,18 @@ const getPinIdAndPuttingItOnAnotherButton = (event) => {
 };
 
 const printPins = (boardId) => {
+  console.error(boardId);
+  let boardName = '';
+  boardsData.getBoardById(boardId)
+    .then((board) => {
+      console.error(board);
+      boardName = board.name;
+    })
+    .catch((error) => console.error(error));
   smash.getPinByBoardIdWithBoardName(boardId)
     .then((pins) => {
       let domStringTwo = '';
-      domStringTwo += '<div class="d-flex flex-wrap justify-content-between header-stuff"><h2 id="eachTitle"></h2>'; // pins[0].boardName
+      domStringTwo += `<div class="d-flex flex-wrap justify-content-between header-stuff"><h2 id="eachTitle">${boardName}</h2>`;
       domStringTwo += '<div class="d-flex flex-wrap">';
       domStringTwo += `<button class="btn btn-light" id="add-pin" data-toggle="modal" data-target="#exampleModal" data-board-id="${boardId}">Create Pin</button>`;
       domStringTwo += '<button class="btn btn-light" id="exit-pins">Go Back</button></div></div>';
