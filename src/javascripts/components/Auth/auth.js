@@ -10,8 +10,8 @@ const signMeIn = () => {
 };
 
 const loginButton = () => {
-  const domString = `<button id="google-auth">
-  <img src="${buttonImg}"></img>
+  const domString = `<button class="btn btn-light" id="google-auth">
+  <img id="signinButton" src="${buttonImg}"></img>
   </button>`;
   utilities.printToDom('auth', domString);
   $('#google-auth').click(signMeIn);
