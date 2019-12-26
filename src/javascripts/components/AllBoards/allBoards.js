@@ -113,11 +113,9 @@ const getPinIdAndPuttingItOnAnotherButton = (event) => {
 };
 
 const printPins = (boardId) => {
-  console.error(boardId);
   let boardName = '';
   boardsData.getBoardById(boardId)
     .then((board) => {
-      console.error(board);
       boardName = board.name;
     })
     .catch((error) => console.error(error));
@@ -150,7 +148,6 @@ const printPinsEventHandler = (event) => {
   const boardName = $(event.target).attr('store-boardName').toString();
   const boardId = event.target.id;
   printPins(boardId);
-  console.error(boardName);
   $('#eachTitle').append(boardName);
 };
 
